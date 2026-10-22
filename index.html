@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISTA® / Interactive Spatial Hub</title>
+    
+    <!-- ПОДКЛЮЧАЕМ СТИЛИ ЖИВОЙ ОНЛАЙН-КАРТЫ -->
+    <link rel="stylesheet" href="https://unpkg.com" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TECH LOADER -->
+    <div class="site-loader">
+        <div class="loader-word">VISTA<span>.</span>SPACE</div>
+        <div class="loader-line"><div class="loader-progress"></div></div>
+        <div class="loader-caption">SPATIAL INDEXING // INITIALIZING</div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <a class="logo" href="index.html">VISTA<span>.</span>SPACE</a>
+        <nav class="navigation">
+            <a href="index.html" class="active">WORLD SPATIAL GRID</a>
+            <a href="saved.html">SAVED RESIDENCES<span id="savedCount"> (0)</span></a>
+        </nav>
+    </header>
+
+    <!-- ИНТЕРАКТИВНЫЙ ДВУХПАНЕЛЬНЫЙ ХАБ -->
+    <main class="spatial-interface">
+        
+        <!-- ЛЕВАЯ ПАНЕЛЬ: ТУТ БУДЕТ НАСТОЯЩАЯ ЖИВАЯ КАРТА НА ГИТХАБЕ -->
+        <section class="map-panel-side">
+            <div id="map"></div>
+        </section>
+
+        <!-- ПРАВАЯ ПАНЕЛЬ: КАТАЛОГ С ВНУТРЕННИМ СКРОЛЛОМ -->
+        <section class="catalog-panel-side" id="collection">
+            <div class="catalog-inner-scroll">
+                
+                <div class="catalog-header-text">
+                    <span class="tech-tag">// SPATIAL DEPLOYMENT INDEX</span>
+                    <h1>REAL ESTATE LISTINGS</h1>
+                </div>
+
+                <!-- КАТАЛОГ ВИЛЛ -->
+                <div class="product-grid">
+                    
+                    <article class="product-card" onclick="window.location.href='property.html?house=malibu-sunset-villa'">
+                        <div class="product-visual">
+                            <button class="wishlist-button" type="button" data-wishlist-id="malibu-sunset-villa">♡</button>
+                            <img class="product-image" src="assets/malibu-villa.jpg" alt="Malibu Villa">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">MALIBU / CALIFORNIA</span>
+                            <h3 class="product-name">THE SUNSET PACIFIC VILLA</h3>
+                            <div class="property-specs">5 Beds · 6 Baths · 6,200 Sq Ft</div>
+                            <p class="product-price">$ 8,500,000</p>
+                        </div>
+                    </article>
+
+                    <article class="product-card" onclick="window.location.href='property.html?house=miami-penthouse'">
+                        <div class="product-visual">
+                            <button class="wishlist-button" type="button" data-wishlist-id="miami-penthouse">♡</button>
+                            <img class="product-image" src="assets/miami-penthouse.jpg" alt="Miami Penthouse">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">BRICKELL / FLORIDA</span>
+                            <h3 class="product-name">BRICKELL SKY PENTHOUSE</h3>
+                            <div class="property-specs">3 Beds · 4 Baths · 3,800 Sq Ft</div>
+                            <p class="product-price">$ 4,200,000</p>
+                        </div>
+                    </article>
+
+                    <article class="product-card" onclick="window.location.href='property.html?house=la-modern-estate'">
+                        <div class="product-visual">
+                            <button class="wishlist-button" type="button" data-wishlist-id="la-modern-estate">♡</button>
+                            <img class="product-image" src="assets/la-estate.jpg" alt="Bel Air Estate">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">BEL AIR / LOS ANGELES</span>
+                            <h3 class="product-name">BEL AIR MINIMALIST ESTATE</h3>
+                            <div class="property-specs">7 Beds · 9 Baths · 10,400 Sq Ft</div>
+                            <p class="product-price">$ 12,900,000</p>
+                        </div>
+                    </article>
+
+                    <article class="product-card" onclick="window.location.href='property.html?house=ny-luxury-loft'">
+                        <div class="product-visual">
+                            <button class="wishlist-button" type="button" data-wishlist-id="ny-luxury-loft">♡</button>
+                            <img class="product-image" src="assets/ny-loft.jpg" alt="Soho Loft">
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">SOHO / NEW YORK</span>
+                            <h3 class="product-name">SOHO ARCHITECTURAL LOFT</h3>
+                            <div class="property-specs">2 Beds · 2.5 Baths · 2,900 Sq Ft</div>
+                            <p class="product-price">$ 5,600,000</p>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- ФУТЕР ВНУТРИ СКРОЛЛА (АККУРАТНЫЙ ЖУРНАЛЬНЫЙ ВИД) -->
+                <footer class="site-footer">
+                    <p>VISTA ARCHITECTURAL INVENTORY © 2026</p>
+                    <a href="index.html">VISTA<span>.</span>SPACE</a>
+                </footer>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ПОДКЛЮЧАЕМ СКРИПТЫ: GSAP, REAL MAP И НАШУ ЛОГИКУ -->
+    <script src="https://cloudflare.com"></script>
+    <script src="https://unpkg.com"></script>
+    
+    <script src="js/properties-data.js"></script>
+    <script src="js/saved.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

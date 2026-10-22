@@ -1,0 +1,541 @@
+/* ===== VISTA® GLOBAL DESIGN SYSTEM — MAP & CONTROLS REFINEMENT ===== */
+
+:root {
+    --bg-tech: #f9f9fb;
+    --text-tech: #111310;
+    --border-tech: #e2e4e8;
+    --accent-glow: #384a37; /* Наш фирменный элитный оливковый цвет */
+    --muted-tech: #8a8f98;
+    
+    --font-display: "Barlow Condensed", sans-serif;
+    --font-body: "Manrope", sans-serif;
+    --font-mono: "DM Mono", monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg-tech); color: var(--text-tech); font-family: var(--font-body); overflow: hidden; }
+
+/* HEADER */
+.site-header { position: fixed; top: 0; left: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; width: 100%; height: 75px; padding: 0 4vw; background: rgba(249, 249, 251, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-tech); }
+.logo { font-family: var(--font-display); font-size: 22px; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; }
+.logo span { color: var(--accent-glow); }
+.navigation { display: flex; gap: 30px; font-family: var(--font-mono); font-size: 10px; font-weight: 500; }
+.navigation a { color: var(--muted-tech); }
+.navigation a.active, .navigation a:hover { color: var(--text-tech); }
+
+/* ИНТЕРФЕЙС ПАНЕЛЕЙ */
+.spatial-interface { display: flex; width: 100vw; height: 100vh; padding-top: 75px; }
+
+/* ЛЕВАЯ ПАНЕЛЬ С КАРТОЙ */
+.map-panel-side { 
+    flex: 1.25 !important; 
+    height: 100% !important; 
+    position: relative !important; 
+    background: #eae6df !important; /* Приятный теплый оттенок подложки */
+    overflow: hidden !important;
+    cursor: grab;
+}
+
+.map-movable-canvas {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform-origin: center center !important;
+    will-change: transform;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1); /* Плавный довод при движении */
+}
+
+/* Красивая, приглушенная подложка карты */
+.main-map-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: contrast(0.92) brightness(0.98) sepia(5%) !important; /* Убираем едкий контраст */
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
+/* Модная хай-тек сетка поверх карты */
+.map-fallback-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    opacity: 0.15 !important;
+    background-image: 
+        linear-gradient(to right, rgba(56, 74, 55, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 74, 55, 0.15) 1px, transparent 1px);
+    background-size: 50px 50px !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+}
+
+/* КНОПКИ ПРИБЛИЖЕНИЯ КАРТЫ (КРУГЛЫЙ ЛЮКС) */
+.zoom-controls-overlay {
+    position: absolute !important;
+    bottom: 40px !important;
+    left: 40px !important;
+    z-index: 500 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.zoom-controls-overlay button {
+    width: 46px !important;
+    height: 46px !important;
+    background: #ffffff !important;
+    color: var(--text-tech) !important;
+    font-family: var(--font-body) !important;
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 50% !important; /* Идеальные круглые кнопки */
+    border: 1px solid #ccd0d8 !important;
+    box-shadow: 0 8px 20px rgba(56, 74, 55, 0.06) !important;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s !important;
+}
+
+.zoom-controls-overlay button:hover {
+    background: var(--accent-glow) !important;
+    border-color: var(--accent-glow) !important;
+    color: #ffffff !important;
+    transform: scale(1.05);
+}
+
+/* ТОЧКИ И ВСПЛЫВАЮЩИЕ ОКНА */
+.map-marker-pin {
+    position: absolute !important;
+    width: 18px !important;
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 10 !important;
+}
+
+.pin-dot {
+    width: 8px !important;
+    height: 8px !important;
+    background: var(--accent-glow) !important;
+    border-radius: 50% !important;
+    z-index: 5 !important;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.pin-pulse {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: var(--accent-glow) !important;
+    border-radius: 50% !important;
+    opacity: 0.4 !important;
+    animation: pinMarkerPulseGlow 2s infinite ease-out !important;
+    z-index: 4 !important;
+}
+
+@keyframes pinMarkerPulseGlow {
+    0% { transform: scale(0.5); opacity: 0.7; }
+    100% { transform: scale(3.8); opacity: 0; }
+}
+
+.map-marker-pin:hover { z-index: 5000 !important; }
+.map-marker-pin:hover .pin-preview-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(-50%) translateY(-14px) scale(1) !important;
+}
+
+.pin-preview-card {
+    position: absolute !important;
+    bottom: 26px !important;
+    left: 50% !important;
+    width: 240px !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid #b6b9c0 !important;
+    padding: 10px !important;
+    box-shadow: 0 15px 35px rgba(56, 74, 55, 0.08) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none !important;
+    transform-origin: bottom center !important;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s !important;
+    transform: translateX(-50%) translateY(0) scale(0.95);
+}
+
+.pin-preview-card img { width: 100% !important; aspect-ratio: 16/10 !important; object-fit: cover !important; }
+.preview-meta h4 { font-size: 11px !important; font-weight: 700 !important; text-transform: uppercase; color: var(--text-tech) !important; margin: 0 !important; }
+.preview-meta span { font-family: var(--font-mono) !important; font-size: 8px !important; color: var(--accent-glow) !important; display: block; margin-top: 4px !important; }
+
+/* ПРАВАЯ СТОРОНА: КАТАЛОГ */
+.catalog-panel-side { flex: 0.75; height: 100%; overflow: hidden; position: relative; background: var(--bg-tech); border-left: 1px solid var(--border-tech); }
+.catalog-inner-scroll { width: 100%; height: 100%; overflow-y: auto; padding: 40px 4vw 80px; }
+.catalog-inner-scroll::-webkit-scrollbar { width: 4px; }
+.catalog-inner-scroll::-webkit-scrollbar-thumb { background: #d0d3dc; }
+
+.catalog-header-text { margin-bottom: 35px; }
+.tech-tag { font-family: var(--font-mono); font-size: 9px; color: var(--muted-tech); letter-spacing: 1px; }
+.catalog-header-text h1 { font-family: var(--font-display); font-size: 2.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; margin-top: 6px; }
+
+/* КАРТОЧКИ В КАТАЛОГЕ */
+.product-grid { display: grid; grid-template-columns: 1fr; gap: 24px; width: 100% !important; }
+.product-card { background: #fff; border: 1px solid var(--border-tech); cursor: pointer; transition: 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.product-card:hover { border-color: #cbd0d8; box-shadow: 0 10px 25px rgba(0,0,0,0.01); transform: translateY(-2px); }
+.product-visual { position: relative; width: 100%; height: 210px; background: #eef0f5; overflow: hidden; }
+.product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.product-card:hover .product-image { transform: scale(1.03); }
+.product-info { padding: 20px; }
+.product-category { color: var(--muted-tech); font-family: var(--font-mono); font-size: 9px; }
+.product-name { font-size: 15px; font-weight: 600; margin: 8px 0 4px; text-transform: uppercase; }
+.property-specs { color: #636b75; font-size: 11px; margin-bottom: 10px; }
+.product-price { color: var(--accent-glow); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+
+.wishlist-button { position: absolute; z-index: 5; top: 12px; right: 12px; width: 34px; height: 34px; background: rgba(255,255,255,0.9); border: 1px solid var(--border-tech); border-radius: 50%; color: var(--text-tech); font-size: 15px; display: grid; place-items: center; cursor: pointer; transition: 0.2s ease; }
+.wishlist-button:hover, .wishlist-button.is-favorite { color: #fff; border-color: var(--accent-glow); background: var(--accent-glow); }
+/* ===== VISTA® LIVE LEAFLET PRODUCTION FIX ===== */
+.map-panel-side {
+    flex: 1.25 !important;
+    height: 100vh !important;
+    position: relative !important;
+    background: #ebedf2 !important;
+    overflow: hidden !important;
+}
+
+#map {
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 10 !important;
+}
+
+/* Перекрашиваем дефолтные квадратные кнопки Гугл/Лифлет в круглый люкс */
+.leaflet-control-zoom {
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    position: absolute !important;
+    bottom: 25px !important;
+    left: 25px !important;
+}
+
+.leaflet-control-zoom-in, 
+.leaflet-control-zoom-out {
+    width: 46px !important;
+    height: 46px !important;
+    background: #ffffff !important;
+    color: var(--text-tech) !important;
+    font-family: var(--font-body), sans-serif !important;
+    font-size: 20px !important;
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 50% !important; /* Делаем круглыми */
+    border: 1px solid #ccd0d8 !important;
+    box-shadow: 0 8px 20px rgba(56, 74, 55, 0.06) !important;
+    transition: background 0.25s, color 0.25s !important;
+}
+
+.leaflet-control-zoom-in:hover, 
+.leaflet-control-zoom-out:hover {
+    background: var(--accent-glow) !important;
+    color: #ffffff !important;
+    border-color: var(--accent-glow) !important;
+}
+
+/* Стеклянные поп-апы при клике на точку */
+.vista-custom-popup .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid #b6b9c0 !important;
+    border-radius: 0px !important;
+    padding: 6px !important;
+    box-shadow: 0 15px 35px rgba(56, 74, 55, 0.08) !important;
+}
+
+.vista-custom-popup .leaflet-popup-tip {
+    background: rgba(255, 255, 255, 0.96) !important;
+}
+
+.custom-map-marker {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+/* ==========================================================================
+   VISTA® LUXURY EDITORIAL PROPERTY PAGE STYLES (NO MORE SHOPPING STYLE)
+   ========================================================================== */
+
+.editorial-property-body {
+    background: var(--bg-tech) !important;
+    color: var(--text-tech) !important;
+    overflow-y: auto !important; /* Даем странице нормально листаться вниз */
+    overflow-x: hidden !important;
+}
+
+/* Измененная шапка страницы товара */
+.vista-editorial-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 70px !important;
+    padding: 0 5vw !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: rgba(249, 249, 251, 0.75) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid var(--border-tech) !important;
+    z-index: 1000 !important;
+}
+
+.editorial-logo {
+    font-family: var(--font-display) !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.04em !important;
+    text-transform: uppercase !important;
+}
+
+.editorial-logo span { color: var(--accent-glow) !important; }
+
+.header-right-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 30px !important;
+}
+
+.editorial-ref-tag {
+    font-family: var(--font-mono) !important;
+    font-size: 9px !important;
+    color: var(--muted-tech) !important;
+    letter-spacing: 1px !important;
+}
+
+.editorial-close-btn {
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    color: var(--text-tech) !important;
+    transition: color 0.2s !important;
+}
+
+.editorial-close-btn:hover { color: var(--accent-glow) !important; }
+
+/* ГИГАНТСКИЙ КИНЕМАТОГРАФИЧНЫЙ БИЛБОРД С ФОТО */
+.estate-hero-billboard {
+    position: relative !important;
+    width: 100vw !important;
+    height: 65vh !important; /* Занимает 65% высоты экрана */
+    margin-top: 70px !important;
+    overflow: hidden !important;
+    background: #f0eae1 !important;
+}
+
+.estate-hero-billboard img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Затемнение снизу фотографии, чтобы белый текст читался идеально */
+.billboard-shadow-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.45) 100%) !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+}
+
+.billboard-bottom-text {
+    position: absolute !important;
+    bottom: 40px !important;
+    left: 5vw !important;
+    right: 5vw !important;
+    z-index: 5 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+
+.editorial-division {
+    font-family: var(--font-mono) !important;
+    font-size: 10px !important;
+    color: rgba(255,255,255,0.75) !important;
+    letter-spacing: 2px !important;
+}
+
+.billboard-bottom-text h1 {
+    font-family: var(--font-display) !important;
+    font-size: clamp(2rem, 5vw, 4.5rem) !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    line-height: 1.0 !important;
+    letter-spacing: -0.02em !important;
+    margin: 0 !important;
+}
+
+/* ЖУРНАЛЬНАЯ СЕТКА КОНТЕНТА НИЖЕ ФОТО */
+.estate-editorial-grid {
+    max-width: 1400px !important;
+    margin: 60px auto 120px !important;
+    padding: 0 5vw !important;
+    display: grid !important;
+    grid-template-columns: 1fr 360px !important; /* Левая часть шире, правая — компактный сайдбар */
+    gap: 80px !important;
+    align-items: start !important;
+}
+
+/* Информационные ячейки характеристик виллы */
+.estate-editorial-specs {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+    border-bottom: 1px solid var(--border-tech) !important;
+    padding-bottom: 30px !important;
+    margin-bottom: 45px !important;
+}
+
+.spec-block {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.spec-title {
+    font-family: var(--font-mono) !important;
+    font-size: 8px !important;
+    color: var(--muted-tech) !important;
+    letter-spacing: 1px !important;
+}
+
+.spec-block strong {
+    font-family: var(--font-display) !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    color: var(--text-tech) !important;
+}
+
+/* Блок текстового описания архитектуры */
+.editorial-text-wrapper {
+    margin-bottom: 50px !important;
+}
+
+.editorial-text-wrapper h3, .editorial-meta-table h3 {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    color: var(--accent-glow) !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 20px !important;
+    text-transform: uppercase !important;
+}
+
+.editorial-text-wrapper p {
+    font-size: 15px !important;
+    line-height: 1.8 !important;
+    color: #4b5056 !important;
+    max-width: 780px !important;
+}
+
+/* Премиальная таблица мета-данных */
+.editorial-meta-table .meta-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 16px 0 !important;
+    border-bottom: 1px solid var(--border-tech) !important;
+}
+
+.meta-row label {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    color: var(--text-tech) !important;
+    letter-spacing: 0.5px !important;
+}
+
+.meta-row span {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    color: var(--muted-tech) !important;
+}
+
+/* ПРАВЫЙ ПАЛЯЩИЙ САЙДБАР (STICKY ACTION CARD) */
+.editorial-sticky-action {
+    position: sticky !important;
+    top: 110px !important; /* Карта-карточка застывает на месте при скролле контента слева */
+    width: 100% !important;
+}
+
+.action-card-glass {
+    background: #ffffff !important;
+    border: 1px solid var(--border-tech) !important;
+    padding: 30px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02) !important;
+}
+
+.action-label {
+    font-family: var(--font-mono) !important;
+    font-size: 9px !important;
+    color: var(--muted-tech) !important;
+    letter-spacing: 1px !important;
+}
+
+.editorial-price-tag {
+    font-family: var(--font-display) !important;
+    font-size: 38px !important;
+    font-weight: 900 !important;
+    color: var(--accent-glow) !important;
+    margin: 10px 0 14px !important;
+    line-height: 1.0 !important;
+}
+
+.action-note {
+    font-size: 12px !important;
+    color: #6a717a !important;
+    line-height: 1.5 !important;
+    margin-bottom: 24px !important;
+}
+
+.editorial-action-btn {
+    width: 100% !important;
+    height: 52px !important;
+    background: var(--accent-glow) !important;
+    color: #ffffff !important;
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    transition: background 0.25s ease !important;
+}
+
+.editorial-action-btn:hover { background: var(--text-tech) !important; }
+
+/* Адаптивность под планшеты и смартфоны */
+@media (max-width: 900px) {
+    .estate-editorial-grid {
+        grid-template-columns: 1fr !important;
+        gap: 50px !important;
+    }
+    .editorial-sticky-action {
+        position: static !important;
+    }
+    .estate-hero-billboard {
+        height: 45vh !important;
+    }
+}

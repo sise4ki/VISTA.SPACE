@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residence Disclosures | VISTA®</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="editorial-property-body">
+
+    <!-- ТЕХНОЛОГИЧНАЯ ВЕРХНЯЯ НАВИГАЦИЯ -->
+    <header class="vista-editorial-header">
+        <a class="editorial-logo" href="index.html">VISTA<span>.</span>SPACE</a>
+        <div class="header-right-actions">
+            <span id="detailNumber" class="editorial-ref-tag">REF // VS-000</span>
+            <a class="editorial-close-btn" href="index.html">RETURN TO CORE GRID ×</a>
+        </div>
+    </header>
+
+    <!-- МОНУМЕНТАЛЬНЫЙ ПЕРВЫЙ ЭКРАН (ФОТО НА 100% ШИРИНЫ) -->
+    <section class="estate-hero-billboard">
+        <img id="detailImage" src="" alt="Premium Residence View">
+        <div class="billboard-shadow-overlay"></div>
+        <div class="billboard-bottom-text">
+            <span id="detailCategory" class="editorial-division">// DIVISION ARCHIVE</span>
+            <h1 id="detailName">RESIDENCE EXCLOSURE</h1>
+        </div>
+    </section>
+
+    <!-- ИНФОРМАЦИОННЫЙ ХАБ СНИЗУ -->
+    <main class="estate-editorial-grid">
+        
+        <!-- ЛЕВАЯ КОЛОНКА: ОПИСАНИЕ И СПЕЦИФИКАЦИИ -->
+        <div class="editorial-main-content">
+            
+            <!-- Уникальный блок риелторских характеристик -->
+            <div class="estate-editorial-specs">
+                <div class="spec-block">
+                    <span class="spec-title">RESIDENCE CAPACITY</span>
+                    <strong id="specBeds">0 Beds</strong>
+                </div>
+                <div class="spec-block">
+                    <span class="spec-title">SANETARY INTERFACE</span>
+                    <strong id="specBaths">0 Baths</strong>
+                </div>
+                <div class="spec-block">
+                    <span class="spec-title">TOTAL INTERNAL FOOTAGE</span>
+                    <strong id="specSqft">0 Sq Ft</strong>
+                </div>
+            </div>
+
+            <div class="editorial-text-wrapper">
+                <h3>ARCHITECTURAL BRIEF</h3>
+                <p id="detailDescription">Loading spatial disclosure documentation...</p>
+            </div>
+
+            <div class="editorial-meta-table">
+                <h3>COMPLIANCE REGISTRY</h3>
+                <div class="meta-row">
+                    <label>GEOGRAPHIC LOCATION</label>
+                    <span id="detailLocation">Loading coordinates...</span>
+                </div>
+                <div class="meta-row">
+                    <label>OWNERSHIP STRUCTURE</label>
+                    <span>FREEHOLD REGISTRATION // PRIVATE ESTATE</span>
+                </div>
+                <div class="meta-row">
+                    <label>EXECUTIVE MANAGER</label>
+                    <span>VISTA TRUSTEE SERVICE USA</span>
+                </div>
+                <div class="meta-row">
+                    <label>ASSET INVENTORY CODE</label>
+                    <span id="detailReference">VS-000-EST</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА: ЗАКРЕПЛЕННЫЙ БЛОК С ЦЕНОЙ И КНОПКОЙ ТУРА -->
+        <aside class="editorial-sticky-action">
+            <div class="action-card-glass">
+                <span class="action-label">VALUATION INDEX</span>
+                <div id="detailPrice" class="editorial-price-tag">$ 0.00</div>
+                <p class="action-note">Стоимость указана с учетом полного юридического сопровождения и аудита безопасности VISTA.</p>
+                
+                <button class="editorial-action-btn" id="bookTourBtn" type="button">
+                    REQUEST PRIVATE PROTOCOL TOUR ↗
+                </button>
+                <p id="tourMessage" class="cart-message"></p>
+            </div>
+        </aside>
+
+    </main>
+
+    <script src="js/properties-data.js"></script>
+    <script src="js/property.js"></script>
+</body>
+</html>
